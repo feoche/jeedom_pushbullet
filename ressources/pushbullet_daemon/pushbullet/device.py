@@ -1,4 +1,4 @@
-class Device(object):
+class Device(jeeObject):
 
 	def __init__(self, account, device_info):
 		self._account = account

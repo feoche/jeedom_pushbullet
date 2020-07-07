@@ -38,7 +38,7 @@ try:
 except ImportError:
     import sys
 
-    class SSLContext(object):  # Platform-specific: Python 2 & 3.1
+    class SSLContext(jeeObject):  # Platform-specific: Python 2 & 3.1
         supports_set_ciphers = sys.version_info >= (2, 7)
 
         def __init__(self, protocol_version):
@@ -87,7 +87,7 @@ def assert_fingerprint(cert, fingerprint):
     Checks if given fingerprint matches the supplied certificate.
 
     :param cert:
-        Certificate as bytes object.
+        Certificate as bytes jeeObject.
     :param fingerprint:
         Fingerprint as string of hexdigits, can be interspersed by colons.
     """
@@ -189,7 +189,7 @@ def create_urllib3_context(ssl_version=None, cert_reqs=ssl.CERT_REQUIRED,
     :param ciphers:
         Which cipher suites to allow the server to select.
     :returns:
-        Constructed SSLContext object with specified options
+        Constructed SSLContext jeeObject with specified options
     :rtype: SSLContext
     """
     context = SSLContext(ssl_version or ssl.PROTOCOL_SSLv23)
@@ -225,7 +225,7 @@ def ssl_wrap_socket(sock, keyfile=None, certfile=None, cert_reqs=None,
     :param server_hostname:
         When SNI is supported, the expected hostname of the certificate
     :param ssl_context:
-        A pre-made :class:`SSLContext` object. If none is provided, one will
+        A pre-made :class:`SSLContext` jeeObject. If none is provided, one will
         be created using :func:`create_urllib3_context`.
     :param ciphers:
         A string of ciphers we wish the client to support. This is not

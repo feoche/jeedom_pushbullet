@@ -42,7 +42,7 @@ def create_mask_key(n):
     return "abcd"
 
 
-class SockMock(object):
+class SockMock(jeeObject):
     def __init__(self):
         self.data = []
         self.sent = []
@@ -448,7 +448,7 @@ class WebSocketTest(unittest.TestCase):
 
 class WebSocketAppTest(unittest.TestCase):
 
-    class NotSetYet(object):
+    class NotSetYet(jeeObject):
         """ A marker class for signalling that a value hasn't been set yet.
         """
 
@@ -475,7 +475,7 @@ class WebSocketAppTest(unittest.TestCase):
             close the connection.
             """
             WebSocketAppTest.keep_running_open = self.keep_running
-            
+
             self.close()
 
         def on_close(self, *args, **kwargs):
@@ -529,7 +529,7 @@ class SockOptTest(unittest.TestCase):
 class UtilsTest(unittest.TestCase):
     def testUtf8Validator(self):
         state = validate_utf8(six.b('\xf0\x90\x80\x80'))
-        self.assertEqual(state, True) 
+        self.assertEqual(state, True)
         state = validate_utf8(six.b('\xce\xba\xe1\xbd\xb9\xcf\x83\xce\xbc\xce\xb5\xed\xa0\x80edited'))
         self.assertEqual(state, False)
         state = validate_utf8(six.b(''))
@@ -564,9 +564,9 @@ class ProxyInfoTest(unittest.TestCase):
 
         self.assertEqual(_get_proxy_info("echo.websocket.org", False, http_proxy_host="localhost", http_proxy_auth=("a", "b")),
             ("localhost", 0, ("a", "b")))
-        self.assertEqual(_get_proxy_info("echo.websocket.org", False, http_proxy_host="localhost", http_proxy_port=3128, http_proxy_auth=("a", "b")), 
+        self.assertEqual(_get_proxy_info("echo.websocket.org", False, http_proxy_host="localhost", http_proxy_port=3128, http_proxy_auth=("a", "b")),
             ("localhost", 3128, ("a", "b")))
-        self.assertEqual(_get_proxy_info("echo.websocket.org", True, http_proxy_host="localhost", http_proxy_auth=("a", "b")), 
+        self.assertEqual(_get_proxy_info("echo.websocket.org", True, http_proxy_host="localhost", http_proxy_auth=("a", "b")),
             ("localhost", 0, ("a", "b")))
         self.assertEqual(_get_proxy_info("echo.websocket.org", True, http_proxy_host="localhost", http_proxy_port=3128, http_proxy_auth=("a", "b")),
             ("localhost", 3128, ("a", "b")))
@@ -629,6 +629,6 @@ class ProxyInfoTest(unittest.TestCase):
 
 
 
-        
+
 if __name__ == "__main__":
     unittest.main()

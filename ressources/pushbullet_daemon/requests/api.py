@@ -16,15 +16,15 @@ from . import sessions
 
 def request(method, url, **kwargs):
     """Constructs and sends a :class:`Request <Request>`.
-    Returns :class:`Response <Response>` object.
+    Returns :class:`Response <Response>` jeeObject.
 
-    :param method: method for the new :class:`Request` object.
-    :param url: URL for the new :class:`Request` object.
+    :param method: method for the new :class:`Request` jeeObject.
+    :param url: URL for the new :class:`Request` jeeObject.
     :param params: (optional) Dictionary or bytes to be sent in the query string for the :class:`Request`.
-    :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+    :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
     :param json: (optional) json data to send in the body of the :class:`Request`.
     :param headers: (optional) Dictionary of HTTP Headers to send with the :class:`Request`.
-    :param cookies: (optional) Dict or CookieJar object to send with the :class:`Request`.
+    :param cookies: (optional) Dict or CookieJar jeeObject to send with the :class:`Request`.
     :param files: (optional) Dictionary of ``'name': file-like-objects`` (or ``{'name': ('filename', fileobj)}``) for multipart encoding upload.
     :param auth: (optional) Auth tuple to enable Basic/Digest/Custom HTTP Auth.
     :param timeout: (optional) How long to wait for the server to send data
@@ -55,9 +55,9 @@ def request(method, url, **kwargs):
 
 
 def get(url, **kwargs):
-    """Sends a GET request. Returns :class:`Response` object.
+    """Sends a GET request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
+    :param url: URL for the new :class:`Request` jeeObject.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
 
@@ -66,9 +66,9 @@ def get(url, **kwargs):
 
 
 def options(url, **kwargs):
-    """Sends a OPTIONS request. Returns :class:`Response` object.
+    """Sends a OPTIONS request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
+    :param url: URL for the new :class:`Request` jeeObject.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
 
@@ -77,9 +77,9 @@ def options(url, **kwargs):
 
 
 def head(url, **kwargs):
-    """Sends a HEAD request. Returns :class:`Response` object.
+    """Sends a HEAD request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
+    :param url: URL for the new :class:`Request` jeeObject.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
 
@@ -88,10 +88,10 @@ def head(url, **kwargs):
 
 
 def post(url, data=None, json=None, **kwargs):
-    """Sends a POST request. Returns :class:`Response` object.
+    """Sends a POST request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
-    :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+    :param url: URL for the new :class:`Request` jeeObject.
+    :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
     :param json: (optional) json data to send in the body of the :class:`Request`.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
@@ -100,10 +100,10 @@ def post(url, data=None, json=None, **kwargs):
 
 
 def put(url, data=None, **kwargs):
-    """Sends a PUT request. Returns :class:`Response` object.
+    """Sends a PUT request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
-    :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+    :param url: URL for the new :class:`Request` jeeObject.
+    :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
 
@@ -111,10 +111,10 @@ def put(url, data=None, **kwargs):
 
 
 def patch(url, data=None, **kwargs):
-    """Sends a PATCH request. Returns :class:`Response` object.
+    """Sends a PATCH request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
-    :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+    :param url: URL for the new :class:`Request` jeeObject.
+    :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
 
@@ -122,9 +122,9 @@ def patch(url, data=None, **kwargs):
 
 
 def delete(url, **kwargs):
-    """Sends a DELETE request. Returns :class:`Response` object.
+    """Sends a DELETE request. Returns :class:`Response` jeeObject.
 
-    :param url: URL for the new :class:`Request` object.
+    :param url: URL for the new :class:`Request` jeeObject.
     :param \*\*kwargs: Optional arguments that ``request`` takes.
     """
 

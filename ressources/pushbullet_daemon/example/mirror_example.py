@@ -10,7 +10,7 @@ import os, sys
 
 from pushbullet import PushBullet, Listener
 
-class Mirrorer(object):
+class Mirrorer(jeeObject):
 
     def __init__(self, auth_key, temp_folder, device_name, last_push = 0, device_iden=None):
         self.temp_folder = temp_folder
@@ -86,7 +86,7 @@ class Mirrorer(object):
             self.listener.run_forever()
         except KeyboardInterrupt:
             self.listener.close()
-    
+
 
 def main():
     config_file = sys.argv[1]

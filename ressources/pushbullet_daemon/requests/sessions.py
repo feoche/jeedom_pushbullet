@@ -4,7 +4,7 @@
 requests.session
 ~~~~~~~~~~~~~~~~
 
-This module provides a Session object to manage and persist settings across
+This module provides a Session jeeObject to manage and persist settings across
 requests (cookies, auth, proxies).
 
 """
@@ -88,7 +88,7 @@ def merge_hooks(request_hooks, session_hooks, dict_class=OrderedDict):
     return merge_setting(request_hooks, session_hooks, dict_class)
 
 
-class SessionRedirectMixin(object):
+class SessionRedirectMixin(jeeObject):
     def resolve_redirects(self, resp, req, stream=False, timeout=None,
                           verify=True, cert=None, proxies=None):
         """Receives a Response. Returns a generator of Responses."""
@@ -286,7 +286,7 @@ class Session(SessionRedirectMixin):
         #: :class:`Session <Session>`.
         self.headers = default_headers()
 
-        #: Default Authentication tuple or object to attach to
+        #: Default Authentication tuple or jeeObject to attach to
         #: :class:`Request <Request>`.
         self.auth = None
 
@@ -322,7 +322,7 @@ class Session(SessionRedirectMixin):
         #: A CookieJar containing all currently outstanding cookies set on this
         #: session. By default it is a
         #: :class:`RequestsCookieJar <requests.cookies.RequestsCookieJar>`, but
-        #: may be any other ``cookielib.CookieJar`` compatible object.
+        #: may be any other ``cookielib.CookieJar`` compatible jeeObject.
         self.cookies = cookiejar_from_dict({})
 
         # Default connection adapters.
@@ -395,10 +395,10 @@ class Session(SessionRedirectMixin):
         cert=None,
         json=None):
         """Constructs a :class:`Request <Request>`, prepares it and sends it.
-        Returns :class:`Response <Response>` object.
+        Returns :class:`Response <Response>` jeeObject.
 
-        :param method: method for the new :class:`Request` object.
-        :param url: URL for the new :class:`Request` object.
+        :param method: method for the new :class:`Request` jeeObject.
+        :param url: URL for the new :class:`Request` jeeObject.
         :param params: (optional) Dictionary or bytes to be sent in the query
             string for the :class:`Request`.
         :param data: (optional) Dictionary or bytes to send in the body of the
@@ -407,7 +407,7 @@ class Session(SessionRedirectMixin):
             :class:`Request`.
         :param headers: (optional) Dictionary of HTTP Headers to send with the
             :class:`Request`.
-        :param cookies: (optional) Dict or CookieJar object to send with the
+        :param cookies: (optional) Dict or CookieJar jeeObject to send with the
             :class:`Request`.
         :param files: (optional) Dictionary of ``'filename': file-like-objects``
             for multipart encoding upload.
@@ -463,9 +463,9 @@ class Session(SessionRedirectMixin):
         return resp
 
     def get(self, url, **kwargs):
-        """Sends a GET request. Returns :class:`Response` object.
+        """Sends a GET request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
+        :param url: URL for the new :class:`Request` jeeObject.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
 
@@ -473,9 +473,9 @@ class Session(SessionRedirectMixin):
         return self.request('GET', url, **kwargs)
 
     def options(self, url, **kwargs):
-        """Sends a OPTIONS request. Returns :class:`Response` object.
+        """Sends a OPTIONS request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
+        :param url: URL for the new :class:`Request` jeeObject.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
 
@@ -483,9 +483,9 @@ class Session(SessionRedirectMixin):
         return self.request('OPTIONS', url, **kwargs)
 
     def head(self, url, **kwargs):
-        """Sends a HEAD request. Returns :class:`Response` object.
+        """Sends a HEAD request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
+        :param url: URL for the new :class:`Request` jeeObject.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
 
@@ -493,10 +493,10 @@ class Session(SessionRedirectMixin):
         return self.request('HEAD', url, **kwargs)
 
     def post(self, url, data=None, json=None, **kwargs):
-        """Sends a POST request. Returns :class:`Response` object.
+        """Sends a POST request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
-        :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+        :param url: URL for the new :class:`Request` jeeObject.
+        :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
         :param json: (optional) json to send in the body of the :class:`Request`.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
@@ -504,29 +504,29 @@ class Session(SessionRedirectMixin):
         return self.request('POST', url, data=data, json=json, **kwargs)
 
     def put(self, url, data=None, **kwargs):
-        """Sends a PUT request. Returns :class:`Response` object.
+        """Sends a PUT request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
-        :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+        :param url: URL for the new :class:`Request` jeeObject.
+        :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
 
         return self.request('PUT', url, data=data, **kwargs)
 
     def patch(self, url, data=None, **kwargs):
-        """Sends a PATCH request. Returns :class:`Response` object.
+        """Sends a PATCH request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
-        :param data: (optional) Dictionary, bytes, or file-like object to send in the body of the :class:`Request`.
+        :param url: URL for the new :class:`Request` jeeObject.
+        :param data: (optional) Dictionary, bytes, or file-like jeeObject to send in the body of the :class:`Request`.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
 
         return self.request('PATCH', url,  data=data, **kwargs)
 
     def delete(self, url, **kwargs):
-        """Sends a DELETE request. Returns :class:`Response` object.
+        """Sends a DELETE request. Returns :class:`Response` jeeObject.
 
-        :param url: URL for the new :class:`Request` object.
+        :param url: URL for the new :class:`Request` jeeObject.
         :param \*\*kwargs: Optional arguments that ``request`` takes.
         """
 
@@ -541,7 +541,7 @@ class Session(SessionRedirectMixin):
         kwargs.setdefault('cert', self.cert)
         kwargs.setdefault('proxies', self.proxies)
 
-        # It's possible that users might accidentally send a Request object.
+        # It's possible that users might accidentally send a Request jeeObject.
         # Guard against that specific failure case.
         if not isinstance(request, PreparedRequest):
             raise ValueError('You can only send PreparedRequests.')

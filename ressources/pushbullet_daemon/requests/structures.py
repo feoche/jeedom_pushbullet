@@ -13,7 +13,7 @@ import collections
 
 class CaseInsensitiveDict(collections.MutableMapping):
     """
-    A case-insensitive ``dict``-like object.
+    A case-insensitive ``dict``-like jeeObject.
 
     Implements all methods and operations of
     ``collections.MutableMapping`` as well as dict's ``copy``. Also
@@ -86,7 +86,7 @@ class CaseInsensitiveDict(collections.MutableMapping):
         return str(dict(self.items()))
 
 class LookupDict(dict):
-    """Dictionary lookup object."""
+    """Dictionary lookup jeeObject."""
 
     def __init__(self, name=None):
         self.name = name

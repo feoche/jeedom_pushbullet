@@ -185,7 +185,7 @@ def _get_proxy_info(hostname, is_secure, **options):
     try to retrieve proxy host and port from environment if not provided in options.
     result is (proxy_host, proxy_port, proxy_auth).
     proxy_auth is tuple of username and password of proxy authentication information.
-    
+
     hostname: websocket server name.
 
     is_secure:  is the connection secure? (wss)
@@ -227,13 +227,13 @@ def _extract_err_message(exception):
 
 def create_connection(url, timeout=None, **options):
     """
-    connect to url and return websocket object.
+    connect to url and return websocket jeeObject.
 
-    Connect to url and return the WebSocket object.
+    Connect to url and return the WebSocket jeeObject.
     Passing optional timeout parameter will set the timeout on the socket.
     If no timeout is supplied, the global default timeout setting returned by getdefauttimeout() is used.
     You can customize using 'options'.
-    If you set "header" list object, you can set your own custom header.
+    If you set "header" list jeeObject, you can set your own custom header.
 
     >>> conn = create_connection("ws://echo.websocket.org/",
          ...     header=["User-Agent: MyProgram",
@@ -285,7 +285,7 @@ _HEADERS_TO_CHECK = {
     }
 
 
-class _FrameBuffer(object):
+class _FrameBuffer(jeeObject):
     _HEADER_MASK_INDEX = 5
     _HEADER_LENGHT_INDEX = 6
 
@@ -350,7 +350,7 @@ class _FrameBuffer(object):
         self.mask = recv_fn(4) if self.has_mask() else ""
 
 
-class WebSocket(object):
+class WebSocket(jeeObject):
     """
     Low level WebSocket interface.
     This class is based on
@@ -372,7 +372,7 @@ class WebSocket(object):
       function's docstring for more details
     sockopt: values for socket.setsockopt.
         sockopt must be tuple and each element is argument of sock.setscokopt.
-    sslopt: dict object for ssl socket option.
+    sslopt: dict jeeObject for ssl socket option.
     fire_cont_frame: fire recv event for each cont frame. default is False
     enable_multithread: if set to True, lock send method.
     """
@@ -380,7 +380,7 @@ class WebSocket(object):
     def __init__(self, get_mask_key=None, sockopt=None, sslopt=None,
         fire_cont_frame=False, enable_multithread=False):
         """
-        Initalize WebSocket object.
+        Initalize WebSocket jeeObject.
         """
         if sockopt is None:
             sockopt = []
@@ -415,7 +415,7 @@ class WebSocket(object):
         set function to create musk key. You can custumize mask key generator.
         Mainly, this is for testing purpose.
 
-        func: callable object. the fuct must 1 argument as integer.
+        func: callable jeeObject. the fuct must 1 argument as integer.
               The argument means length of mask key.
               This func must be return string(byte array),
               which length is argument specified.
@@ -444,7 +444,7 @@ class WebSocket(object):
         """
         Connect to url. url is websocket url scheme. ie. ws://host:port/resource
         You can customize using 'options'.
-        If you set "header" list object, you can set your own custom header.
+        If you set "header" list jeeObject, you can set your own custom header.
 
         >>> ws = WebSocket()
         >>> ws.connect("ws://echo.websocket.org/",
@@ -486,7 +486,7 @@ class WebSocket(object):
                 self.sock.setsockopt(*opts)
             for opts in self.sockopt:
                 self.sock.setsockopt(*opts)
-            
+
             address = addrinfo[4]
             try:
                 self.sock.connect(address)
@@ -609,7 +609,7 @@ class WebSocket(object):
             r = r.lower()
             if v != r:
                 return False
-        
+
         if subprotocols:
             subproto = headers.get("sec-websocket-protocol", None)
             if not subproto or subproto not in subprotocols:
@@ -766,7 +766,7 @@ class WebSocket(object):
             frame = self.recv_frame()
             if not frame:
                 # handle error:
-                # 'NoneType' object has no attribute 'opcode'
+                # 'NoneType' jeeObject has no attribute 'opcode'
                 raise WebSocketProtocolException("Not a valid frame %s" % frame)
             elif frame.opcode in (ABNF.OPCODE_TEXT, ABNF.OPCODE_BINARY, ABNF.OPCODE_CONT):
                 if not self._recving_frames and frame.opcode == ABNF.OPCODE_CONT:
@@ -783,7 +783,7 @@ class WebSocket(object):
 
                 if frame.fin:
                     self._recving_frames = None
-                
+
                 if frame.fin or self.fire_cont_frame:
                     data = self._cont_data
                     self._cont_data = None
@@ -810,7 +810,7 @@ class WebSocket(object):
         """
         recieve data as frame from server.
 
-        return value: ABNF frame object.
+        return value: ABNF frame jeeObject.
         """
         frame_buffer = self._frame_buffer
         # Header
@@ -857,7 +857,7 @@ class WebSocket(object):
 
     def close(self, status=STATUS_NORMAL, reason=six.b("")):
         """
-        Close Websocket object
+        Close Websocket jeeObject
 
         status: status code to send. see STATUS_XXX.
 

@@ -6,7 +6,7 @@
 
 - 0.4.0
 
-    - API changes, direct access to the device object.
+    - API changes, direct access to the device jeeObject.
 
 - 0.3.0
 

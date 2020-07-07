@@ -18,14 +18,14 @@ except ImportError:
     import dummy_threading as threading
 
 
-class MockRequest(object):
+class MockRequest(jeeObject):
     """Wraps a `requests.Request` to mimic a `urllib2.Request`.
 
     The code in `cookielib.CookieJar` expects this interface in order to correctly
     manage cookie policies, i.e., determine whether a cookie can be set, given the
     domains of the request and the cookie.
 
-    The original request object is read-only. The client is responsible for collecting
+    The original request jeeObject is read-only. The client is responsible for collecting
     the new headers via `get_new_headers()` and interpreting them appropriately. You
     probably want `get_cookie_header`, defined below.
     """
@@ -90,7 +90,7 @@ class MockRequest(object):
         return self.get_host()
 
 
-class MockResponse(object):
+class MockResponse(jeeObject):
     """Wraps a `httplib.HTTPMessage` to mimic a `urllib.addinfourl`.
 
     ...what? Basically, expose the parsed HTTP headers from the server response
@@ -115,13 +115,13 @@ def extract_cookies_to_jar(jar, request, response):
     """Extract the cookies from the response into a CookieJar.
 
     :param jar: cookielib.CookieJar (not necessarily a RequestsCookieJar)
-    :param request: our own requests.Request object
-    :param response: urllib3.HTTPResponse object
+    :param request: our own requests.Request jeeObject
+    :param response: urllib3.HTTPResponse jeeObject
     """
     if not (hasattr(response, '_original_response') and
             response._original_response):
         return
-    # the _original_response field is the wrapped httplib.HTTPResponse object,
+    # the _original_response field is the wrapped httplib.HTTPResponse jeeObject,
     req = MockRequest(request)
     # pull out the HTTPMessage with the headers and put it in the mock:
     res = MockResponse(response._original_response.msg)
@@ -333,7 +333,7 @@ class RequestsCookieJar(cookielib.CookieJar, collections.MutableMapping):
     def __getstate__(self):
         """Unlike a normal CookieJar, this class is pickleable."""
         state = self.__dict__.copy()
-        # remove the unpickleable RLock object
+        # remove the unpickleable RLock jeeObject
         state.pop('_cookies_lock')
         return state
 
@@ -386,7 +386,7 @@ def create_cookie(name, value, **kwargs):
 
 
 def morsel_to_cookie(morsel):
-    """Convert a Morsel object into a Cookie containing the one k/v pair."""
+    """Convert a Morsel jeeObject into a Cookie containing the one k/v pair."""
 
     expires = None
     if morsel['max-age']:
@@ -435,12 +435,12 @@ def cookiejar_from_dict(cookie_dict, cookiejar=None, overwrite=True):
 def merge_cookies(cookiejar, cookies):
     """Add cookies to cookiejar and returns a merged CookieJar.
 
-    :param cookiejar: CookieJar object to add the cookies to.
-    :param cookies: Dictionary or CookieJar object to be added.
+    :param cookiejar: CookieJar jeeObject to add the cookies to.
+    :param cookies: Dictionary or CookieJar jeeObject to be added.
     """
     if not isinstance(cookiejar, cookielib.CookieJar):
         raise ValueError('You can only merge into CookieJar')
-    
+
     if isinstance(cookies, dict):
         cookiejar = cookiejar_from_dict(
             cookies, cookiejar=cookiejar, overwrite=False)

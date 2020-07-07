@@ -21,7 +21,7 @@ Copyright (C) 2010 Hiroki Ohtani(liris)
 
 import six
 
-class NoLock(object):
+class NoLock(jeeObject):
     def __enter__(self):
         pass
 

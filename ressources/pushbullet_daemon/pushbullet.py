@@ -17,12 +17,12 @@ HTTP_PROXY_HOST = None
 HTTP_PROXY_PORT = None
 
 
-class Command(object):
+class Command(jeeObject):
 	global thead
 	def __init__(self, api_key):
 		self.api_key = api_key
 		self.s = None
-	
+
 	def run(self, timeout):
 		def target():
 			program_path = os.path.dirname(os.path.realpath(__file__))
@@ -32,17 +32,17 @@ class Command(object):
 			logger.debug("Return code: " + str(self.process.returncode))
 			logger.debug("Thread finished")
 			self.timer.cancel()
-		
+
 		def timer_callback():
 			logger.debug("Thread timeout, terminate it")
-			
+
 
 		thread = threading.Thread(target=target)
 		self.timer = threading.Timer(int(timeout), timer_callback)
 		self.timer.start()
 		thread.start()
 
-		
+
 # ----------------------------------------------------------------------------
 # DEAMONIZE
 # Credit: George Henze
@@ -58,7 +58,7 @@ def shutdown():
 	logger.debug("Exit 0")
 	sys.stdout.flush()
 	os._exit(0)
-	
+
 def handler(signum=None, frame=None):
 	logger.debug("Signal %i caught, exiting..." % int(signum))
 	shutdown()
@@ -73,13 +73,13 @@ def daemonize():
 	except OSError as e:
 		raise RuntimeError("1st fork failed: %s [%d]" % (e.strerror, e.errno))
 
-	os.setsid() 
+	os.setsid()
 
 	prev = os.umask(0)
 	os.umask(prev and int('077', 8))
 
 	try:
-		pid = os.fork() 
+		pid = os.fork()
 		if pid != 0:
 			sys.exit(0)
 	except OSError as e:
@@ -99,20 +99,20 @@ def logger_init(name, debug):
 
 	#formatter = logging.Formatter(fmt='%(asctime)s - %(levelname)s - %(module)s - %(message)s')
 	formatter = logging.Formatter('%(asctime)s - %(threadName)s - %(module)s:%(lineno)d - %(levelname)s - %(message)s')
-	
+
 	if debug:
 		loglevel = "DEBUG"
 		# handler = logging.StreamHandler()
 		handler = logging.FileHandler(logfile)
 	else:
 		handler = logging.FileHandler(logfile)
-					
+
 	handler.setFormatter(formatter)
-	
+
 	logger = logging.getLogger(name)
 	logger.setLevel(logging.getLevelName(loglevel))
 	logger.addHandler(handler)
-	
+
 	return logger
 
 def on_push(push):
@@ -122,7 +122,7 @@ def on_push(push):
 	process.communicate()
 	logger.debug("Return code: " + str(process.returncode))
 	logger.debug("Thread finished")
-	
+
 	#mode multi-thread
 	#command = Command(API_KEY)
 	#command.run(1000)
@@ -131,23 +131,23 @@ def on_ping(push):
 	global is_alive
 	is_alive = 1
 
-		
+
 def main():
 	global logger
 	global pidfile
 	global API_KEY
 	global is_alive
-	
+
 	is_alive = 0
 
 	API_KEY = sys.argv[1]
 	logger = logger_init('pushbullet', True)
-	
+
 	logger.debug("Check PID file")
-	
+
 	path = os.path.dirname(os.path.realpath(__file__))+'/../../../../tmp'
 
-	try: 
+	try:
 	    os.makedirs(path)
 	except OSError:
 	    if not os.path.isdir(path):
@@ -179,9 +179,9 @@ def main():
 				on_push=on_push,
 				http_proxy_host=HTTP_PROXY_HOST,
 				http_proxy_port=HTTP_PROXY_PORT)
-	
+
 	s.run_forever()
-	
+
 	t = Timer(60, timeout)
 	t.start()
 
@@ -192,13 +192,13 @@ def timeout(push):
 	global is_alive
 	if is_alive == 0:
 		sys.exit(0)
-	
+
 	is_alive = 0
 
 	t = Timer(60, timeout)
 	t.start()
 
-	
+
 if __name__ == '__main__':
 
 	# Init shutdown handler

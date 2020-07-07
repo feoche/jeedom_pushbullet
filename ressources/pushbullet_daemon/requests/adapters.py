@@ -37,7 +37,7 @@ DEFAULT_POOLSIZE = 10
 DEFAULT_RETRIES = 0
 
 
-class BaseAdapter(object):
+class BaseAdapter(jeeObject):
     """The Base Transport Adapter"""
 
     def __init__(self):
@@ -161,7 +161,7 @@ class HTTPAdapter(BaseAdapter):
         code, and is only exposed for use when subclassing the
         :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`.
 
-        :param conn: The urllib3 connection object associated with the cert.
+        :param conn: The urllib3 connection jeeObject associated with the cert.
         :param url: The requested URL.
         :param verify: Whether we should actually verify the certificate.
         :param cert: The SSL certificate to verify.
@@ -194,13 +194,13 @@ class HTTPAdapter(BaseAdapter):
                 conn.cert_file = cert
 
     def build_response(self, req, resp):
-        """Builds a :class:`Response <requests.Response>` object from a urllib3
+        """Builds a :class:`Response <requests.Response>` jeeObject from a urllib3
         response. This should not be called from user code, and is only exposed
         for use when subclassing the
         :class:`HTTPAdapter <requests.adapters.HTTPAdapter>`
 
         :param req: The :class:`PreparedRequest <PreparedRequest>` used to generate the response.
-        :param resp: The urllib3 response object.
+        :param resp: The urllib3 response jeeObject.
         """
         response = Response()
 
@@ -321,7 +321,7 @@ class HTTPAdapter(BaseAdapter):
         return headers
 
     def send(self, request, stream=False, timeout=None, verify=True, cert=None, proxies=None):
-        """Sends PreparedRequest object. Returns Response object.
+        """Sends PreparedRequest jeeObject. Returns Response jeeObject.
 
         :param request: The :class:`PreparedRequest <PreparedRequest>` being sent.
         :param stream: (optional) Whether to stream the request content.

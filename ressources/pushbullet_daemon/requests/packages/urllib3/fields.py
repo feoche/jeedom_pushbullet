@@ -46,7 +46,7 @@ def format_header_param(name, value):
     return value
 
 
-class RequestField(object):
+class RequestField(jeeObject):
     """
     A data container for request body parameters.
 
@@ -57,7 +57,7 @@ class RequestField(object):
     :param filename:
         An optional filename of the request field.
     :param headers:
-        An optional dict-like object of headers to initially use for the field.
+        An optional dict-like jeeObject of headers to initially use for the field.
     """
     def __init__(self, name, data, filename=None, headers=None):
         self._name = name

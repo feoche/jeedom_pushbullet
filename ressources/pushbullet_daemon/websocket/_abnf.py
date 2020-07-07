@@ -51,7 +51,7 @@ VALID_CLOSE_STATUS = (
     STATUS_UNEXPECTED_CONDITION,
     )
 
-class ABNF(object):
+class ABNF(jeeObject):
     """
     ABNF frame class.
     see http://tools.ietf.org/html/rfc5234
@@ -154,7 +154,7 @@ class ABNF(object):
 
     def format(self):
         """
-        format this object to string(byte array) to send data to server.
+        format this jeeObject to string(byte array) to send data to server.
         """
         if any(x not in (0, 1) for x in [self.fin, self.rsv1, self.rsv2, self.rsv3]):
             raise ValueError("not 0 or 1")

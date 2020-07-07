@@ -33,7 +33,7 @@ def _basic_auth_str(username, password):
     return authstr
 
 
-class AuthBase(object):
+class AuthBase(jeeObject):
     """Base class that all auth implementations derive from"""
 
     def __call__(self, r):
@@ -41,7 +41,7 @@ class AuthBase(object):
 
 
 class HTTPBasicAuth(AuthBase):
-    """Attaches HTTP Basic Authentication to the given Request object."""
+    """Attaches HTTP Basic Authentication to the given Request jeeObject."""
     def __init__(self, username, password):
         self.username = username
         self.password = password
@@ -52,14 +52,14 @@ class HTTPBasicAuth(AuthBase):
 
 
 class HTTPProxyAuth(HTTPBasicAuth):
-    """Attaches HTTP Proxy Authentication to a given Request object."""
+    """Attaches HTTP Proxy Authentication to a given Request jeeObject."""
     def __call__(self, r):
         r.headers['Proxy-Authorization'] = _basic_auth_str(self.username, self.password)
         return r
 
 
 class HTTPDigestAuth(AuthBase):
-    """Attaches HTTP Digest Authentication to the given Request object."""
+    """Attaches HTTP Digest Authentication to the given Request jeeObject."""
     def __init__(self, username, password):
         self.username = username
         self.password = password
@@ -200,7 +200,7 @@ class HTTPDigestAuth(AuthBase):
             self.pos = r.body.tell()
         except AttributeError:
             # In the case of HTTPDigestAuth being reused and the body of
-            # the previous request was a file-like object, pos has the
+            # the previous request was a file-like jeeObject, pos has the
             # file position of the previous body. Ensure it's set to
             # None.
             self.pos = None

@@ -9,7 +9,7 @@ from .filepost import encode_multipart_formdata
 __all__ = ['RequestMethods']
 
 
-class RequestMethods(object):
+class RequestMethods(jeeObject):
     """
     Convenience mixin for classes who implement a :meth:`urlopen` method, such
     as :class:`~urllib3.connectionpool.HTTPConnectionPool` and

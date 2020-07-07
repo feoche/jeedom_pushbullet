@@ -9,7 +9,7 @@ from .filetype import get_file_type
 
 
 
-class PushBullet(object):
+class PushBullet(jeeObject):
 
     DEVICES_URL = "https://api.pushbullet.com/v2/devices"
     CONTACTS_URL = "https://api.pushbullet.com/v2/contacts"
@@ -152,15 +152,15 @@ class PushBullet(object):
     def dismiss_push(self, iden):
         data = {"dismissed": True}
         r = self._session.post("{}/{}".format(self.PUSH_URL, iden), data=json.dumps(data))
- 
+
         if r.status_code == requests.codes.ok:
             return True, r.json()
         else:
-            return False, r.json()  
+            return False, r.json()
 
     def delete_push(self, iden):
         r = self._session.delete("{}/{}".format(self.PUSH_URL, iden))
- 
+
         if r.status_code == requests.codes.ok:
             return True, r.json()
         else:
@@ -177,7 +177,7 @@ class PushBullet(object):
 
         if r.status_code != requests.codes.ok:
             return False, r.json()
-        
+
         upload_data = r.json().get("data")
         file_url = r.json().get("file_url")
         upload_url = r.json().get("upload_url")
@@ -192,9 +192,9 @@ class PushBullet(object):
             data["body"] = body
 
         data.update(PushBullet._recipient(device, contact, email))
-    
+
         return self._push(data)
-    
+
     def push_note(self, title, body, device=None, contact=None, email=None):
         data = {"type": "note", "title": title, "body": body}
 

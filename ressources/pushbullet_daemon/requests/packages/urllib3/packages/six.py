@@ -50,7 +50,7 @@ else:
         MAXSIZE = int((1 << 31) - 1)
     else:
         # It's possible to have sizeof(long) != sizeof(Py_ssize_t).
-        class X(object):
+        class X(jeeObject):
             def __len__(self):
                 return 1 << 31
         try:
@@ -75,7 +75,7 @@ def _import_module(name):
     return sys.modules[name]
 
 
-class _LazyDescr(object):
+class _LazyDescr(jeeObject):
 
     def __init__(self, name):
         self.name = name
@@ -236,7 +236,7 @@ if PY3:
     def get_unbound_function(unbound):
         return unbound
 
-    Iterator = object
+    Iterator = jeeObject
 
     def callable(obj):
         return any("__call__" in klass.__dict__ for klass in type(obj).__mro__)
@@ -244,7 +244,7 @@ else:
     def get_unbound_function(unbound):
         return unbound.im_func
 
-    class Iterator(object):
+    class Iterator(jeeObject):
 
         def next(self):
             return type(self).__next__(self)
@@ -380,6 +380,6 @@ else:
 _add_doc(reraise, """Reraise an exception.""")
 
 
-def with_metaclass(meta, base=object):
+def with_metaclass(meta, base=jeeObject):
     """Create a base class with a metaclass."""
     return meta("NewBase", (base,), {})

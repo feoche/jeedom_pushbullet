@@ -163,7 +163,7 @@ def get_subj_alt_name(peer_cert):
     return dns_name
 
 
-class WrappedSocket(object):
+class WrappedSocket(jeeObject):
     '''API-compatibility wrapper for Python OpenSSL's Connection-class.
 
     Note: _makefile_refs, _drop() and _reuse() are needed for the garbage

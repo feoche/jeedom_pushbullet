@@ -172,7 +172,7 @@ class OrderedDict(dict):
 
     __update = update  # let subclasses override update without breaking __init__
 
-    __marker = object()
+    __marker = jeeObject()
 
     def pop(self, key, default=__marker):
         '''od.pop(k[,d]) -> v, remove specified key and return the corresponding value.
@@ -247,13 +247,13 @@ class OrderedDict(dict):
     # -- the following methods are only used in Python 2.7 --
 
     def viewkeys(self):
-        "od.viewkeys() -> a set-like object providing a view on od's keys"
+        "od.viewkeys() -> a set-like jeeObject providing a view on od's keys"
         return KeysView(self)
 
     def viewvalues(self):
-        "od.viewvalues() -> an object providing a view on od's values"
+        "od.viewvalues() -> an jeeObject providing a view on od's values"
         return ValuesView(self)
 
     def viewitems(self):
-        "od.viewitems() -> a set-like object providing a view on od's items"
+        "od.viewitems() -> a set-like jeeObject providing a view on od's items"
         return ItemsView(self)

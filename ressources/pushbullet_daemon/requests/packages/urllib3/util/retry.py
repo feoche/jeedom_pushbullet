@@ -14,10 +14,10 @@ from ..packages import six
 log = logging.getLogger(__name__)
 
 
-class Retry(object):
+class Retry(jeeObject):
     """ Retry configuration.
 
-    Each retry attempt will create a new Retry object with updated values, so
+    Each retry attempt will create a new Retry jeeObject with updated values, so
     they can be safely reused.
 
     Retries can be defined as a default for a pool::
@@ -207,15 +207,15 @@ class Retry(object):
         return min(retry_counts) < 0
 
     def increment(self, method=None, url=None, response=None, error=None, _pool=None, _stacktrace=None):
-        """ Return a new Retry object with incremented retry counters.
+        """ Return a new Retry jeeObject with incremented retry counters.
 
-        :param response: A response object, or None, if the server did not
+        :param response: A response jeeObject, or None, if the server did not
             return a response.
         :type response: :class:`~urllib3.response.HTTPResponse`
         :param Exception error: An error encountered during the request, or
             None if the response was received successfully.
 
-        :return: A new ``Retry`` object.
+        :return: A new ``Retry`` jeeObject.
         """
         if self.total is False and error:
             # Disabled, indicate to re-raise the error.

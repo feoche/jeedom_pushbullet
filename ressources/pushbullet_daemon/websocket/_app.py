@@ -34,10 +34,10 @@ from ._core import WebSocket, getdefaulttimeout, logger
 from ._exceptions import *
 from websocket._abnf import ABNF
 
-class WebSocketApp(object):
+class WebSocketApp(jeeObject):
     """
     Higher level of APIs are provided.
-    The interface is like JavaScript WebSocket object.
+    The interface is like JavaScript WebSocket jeeObject.
     """
     def __init__(self, url, header=[],
                  on_open=None, on_message=None, on_error=None,
@@ -48,21 +48,21 @@ class WebSocketApp(object):
         """
         url: websocket url.
         header: custom header for websocket handshake.
-        on_open: callable object which is called at opening websocket.
-          this function has one argument. The arugment is this class object.
-        on_message: callbale object which is called when recieved data.
+        on_open: callable jeeObject which is called at opening websocket.
+          this function has one argument. The arugment is this class jeeObject.
+        on_message: callbale jeeObject which is called when recieved data.
          on_message has 2 arguments.
-         The 1st arugment is this class object.
+         The 1st arugment is this class jeeObject.
          The passing 2nd arugment is utf-8 string which we get from the server.
-        on_error: callable object which is called when we get error.
+        on_error: callable jeeObject which is called when we get error.
          on_error has 2 arguments.
-         The 1st arugment is this class object.
-         The passing 2nd arugment is exception object.
-        on_close: callable object which is called when closed the connection.
-         this function has one argument. The arugment is this class object.
-        on_cont_message: callback object which is called when recieve continued frame data.
+         The 1st arugment is this class jeeObject.
+         The passing 2nd arugment is exception jeeObject.
+        on_close: callable jeeObject which is called when closed the connection.
+         this function has one argument. The arugment is this class jeeObject.
+        on_cont_message: callback jeeObject which is called when recieve continued frame data.
          on_message has 3 arguments.
-         The 1st arugment is this class object.
+         The 1st arugment is this class jeeObject.
          The passing 2nd arugment is utf-8 string which we get from the server.
          The 3rd arugment is continue flag. if 0, the data continue to next frame data
         keep_running: a boolean flag indicating whether the app's main loop should
@@ -202,7 +202,7 @@ class WebSocketApp(object):
             code = 256*six.byte2int(data[0:1]) + six.byte2int(data[1:2])
             reason = data[2:].decode('utf-8')
             return [code,reason]
-        
+
         return [None,None]
 
     def _callback(self, callback, *args):

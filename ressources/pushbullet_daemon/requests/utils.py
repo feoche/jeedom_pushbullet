@@ -113,14 +113,14 @@ def get_netrc_auth(url):
 
 
 def guess_filename(obj):
-    """Tries to guess the filename of the given object."""
+    """Tries to guess the filename of the given jeeObject."""
     name = getattr(obj, 'name', None)
     if name and isinstance(name, builtin_str) and name[0] != '<' and name[-1] != '>':
         return os.path.basename(name)
 
 
 def from_key_val_list(value):
-    """Take an object and test to see if it can be represented as a
+    """Take an jeeObject and test to see if it can be represented as a
     dictionary. Unless it can not be represented as such, return an
     OrderedDict, e.g.,
 
@@ -143,7 +143,7 @@ def from_key_val_list(value):
 
 
 def to_key_val_list(value):
-    """Take an object and test to see if it can be represented as a
+    """Take an jeeObject and test to see if it can be represented as a
     dictionary. If it can be, return a list of tuples, e.g.,
 
     ::
@@ -260,7 +260,7 @@ def unquote_header_value(value, is_filename=False):
 def dict_from_cookiejar(cj):
     """Returns a key/value dictionary from a CookieJar.
 
-    :param cj: CookieJar object to extract cookies from.
+    :param cj: CookieJar jeeObject to extract cookies from.
     """
 
     cookie_dict = {}
@@ -352,7 +352,7 @@ def iter_slices(string, slice_length):
 def get_unicode_from_response(r):
     """Returns the requested content back in unicode.
 
-    :param r: Response object to get unicode content from.
+    :param r: Response jeeObject to get unicode content from.
 
     Tried:
 
@@ -665,7 +665,7 @@ def get_auth_from_url(url):
 
 def to_native_string(string, encoding='ascii'):
     """
-    Given a string object, regardless of type, returns a representation of that
+    Given a string jeeObject, regardless of type, returns a representation of that
     string in the native string type, encoding and decoding where necessary.
     This assumes ASCII unless told otherwise.
     """

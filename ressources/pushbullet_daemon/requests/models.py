@@ -49,7 +49,7 @@ ITER_CHUNK_SIZE = 512
 json_dumps = json.dumps
 
 
-class RequestEncodingMixin(object):
+class RequestEncodingMixin(jeeObject):
     @property
     def path_url(self):
         """Build the path URL to use."""
@@ -158,7 +158,7 @@ class RequestEncodingMixin(object):
         return body, content_type
 
 
-class RequestHooksMixin(object):
+class RequestHooksMixin(jeeObject):
     def register_hook(self, event, hook):
         """Properly register a hook."""
 
@@ -183,7 +183,7 @@ class RequestHooksMixin(object):
 
 
 class Request(RequestHooksMixin):
-    """A user-created :class:`Request <Request>` object.
+    """A user-created :class:`Request <Request>` jeeObject.
 
     Used to prepare a :class:`PreparedRequest <PreparedRequest>`, which is sent to the server.
 
@@ -261,10 +261,10 @@ class Request(RequestHooksMixin):
 
 
 class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
-    """The fully mutable :class:`PreparedRequest <PreparedRequest>` object,
+    """The fully mutable :class:`PreparedRequest <PreparedRequest>` jeeObject,
     containing the exact bytes that will be sent to the server.
 
-    Generated from either a :class:`Request <Request>` object or manually.
+    Generated from either a :class:`Request <Request>` jeeObject or manually.
 
     Usage::
 
@@ -517,8 +517,8 @@ class PreparedRequest(RequestEncodingMixin, RequestHooksMixin):
             self.register_hook(event, hooks[event])
 
 
-class Response(object):
-    """The :class:`Response <Response>` object, which contains a
+class Response(jeeObject):
+    """The :class:`Response <Response>` jeeObject, which contains a
     server's response to an HTTP request.
     """
 
@@ -549,7 +549,7 @@ class Response(object):
         #: value of a ``'Content-Encoding'`` response header.
         self.headers = CaseInsensitiveDict()
 
-        #: File-like object representation of response (for advanced usage).
+        #: File-like jeeObject representation of response (for advanced usage).
         #: Use of ``raw`` requires that ``stream=True`` be set on the request.
         # This requirement does not apply for use internally to Requests.
         self.raw = None
@@ -575,7 +575,7 @@ class Response(object):
         #: and the arrival of the response (as a timedelta)
         self.elapsed = datetime.timedelta(0)
 
-        #: The :class:`PreparedRequest <PreparedRequest>` object to which this
+        #: The :class:`PreparedRequest <PreparedRequest>` jeeObject to which this
         #: is a response.
         self.request = None
 
@@ -661,7 +661,7 @@ class Response(object):
                 except ReadTimeoutError as e:
                     raise ConnectionError(e)
             except AttributeError:
-                # Standard file-like object.
+                # Standard file-like jeeObject.
                 while True:
                     chunk = self.raw.read(chunk_size)
                     if not chunk:
@@ -832,7 +832,7 @@ class Response(object):
 
     def close(self):
         """Releases the connection back to the pool. Once this method has been
-        called the underlying ``raw`` object must not be accessed again.
+        called the underlying ``raw`` jeeObject must not be accessed again.
 
         *Note: Should not normally need to be called explicitly.*
         """

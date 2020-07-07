@@ -11,7 +11,7 @@ except ImportError:
     from httplib import HTTPConnection as _HTTPConnection, HTTPException
 
 
-class DummyConnection(object):
+class DummyConnection(jeeObject):
     "Used to detect a failed ConnectionCls import."
     pass
 
@@ -60,7 +60,7 @@ port_by_scheme = {
 RECENT_DATE = datetime.date(2014, 1, 1)
 
 
-class HTTPConnection(_HTTPConnection, object):
+class HTTPConnection(_HTTPConnection, jeeObject):
     """
     Based on httplib.HTTPConnection but provides an extra constructor
     backwards-compatibility layer between older and newer Pythons.

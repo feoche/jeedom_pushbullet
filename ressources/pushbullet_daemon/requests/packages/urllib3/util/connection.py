@@ -14,7 +14,7 @@ def is_connection_dropped(conn):  # Platform-specific
     Returns True if the connection is dropped and should be closed.
 
     :param conn:
-        :class:`httplib.HTTPConnection` object.
+        :class:`httplib.HTTPConnection` jeeObject.
 
     Note: For platforms like AppEngine, this will always return ``False`` to
     let the platform handle connection recycling transparently for us.
@@ -47,10 +47,10 @@ def is_connection_dropped(conn):  # Platform-specific
 # library test suite. Added to its signature is only `socket_options`.
 def create_connection(address, timeout=socket._GLOBAL_DEFAULT_TIMEOUT,
                       source_address=None, socket_options=None):
-    """Connect to *address* and return the socket object.
+    """Connect to *address* and return the socket jeeObject.
 
     Convenience function.  Connect to *address* (a 2-tuple ``(host,
-    port)``) and return the socket object.  Passing the optional
+    port)``) and return the socket jeeObject.  Passing the optional
     *timeout* parameter will set the timeout on the socket instance
     before attempting to connect.  If no *timeout* is supplied, the
     global default timeout setting returned by :func:`getdefaulttimeout`

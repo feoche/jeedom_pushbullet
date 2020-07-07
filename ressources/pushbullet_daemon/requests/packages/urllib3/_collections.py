@@ -20,7 +20,7 @@ from .packages.six import iterkeys, itervalues
 __all__ = ['RecentlyUsedContainer', 'HTTPHeaderDict']
 
 
-_Null = object()
+_Null = jeeObject()
 
 
 class RecentlyUsedContainer(MutableMapping):

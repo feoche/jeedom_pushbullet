@@ -47,11 +47,11 @@ xrange = six.moves.xrange
 
 log = logging.getLogger(__name__)
 
-_Default = object()
+_Default = jeeObject()
 
 
 ## Pool objects
-class ConnectionPool(object):
+class ConnectionPool(jeeObject):
     """
     Base class for all connection pools, such as
     :class:`.HTTPConnectionPool` and :class:`.HTTPSConnectionPool`.
@@ -101,7 +101,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
         be a float or integer, which sets the timeout for the HTTP request,
         or an instance of :class:`urllib3.util.Timeout` which gives you more
         fine-grained control over request timeouts. After the constructor has
-        been parsed, this is always a `urllib3.util.Timeout` object.
+        been parsed, this is always a `urllib3.util.Timeout` jeeObject.
 
     :param maxsize:
         Number of connections to save that can be reused. More than 1 is useful
@@ -235,7 +235,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
         Put a connection back into the pool.
 
         :param conn:
-            Connection object for the current host and port as returned by
+            Connection jeeObject for the current host and port as returned by
             :meth:`._new_conn` or :meth:`._get_conn`.
 
         If the pool is already full, the connection is closed and discarded
@@ -298,7 +298,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
     def _make_request(self, conn, method, url, timeout=_Default,
                       **httplib_request_kw):
         """
-        Perform a request on a given urllib connection object taken from our
+        Perform a request on a given urllib connection jeeObject taken from our
         pool.
 
         :param conn:
@@ -437,7 +437,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
             :class:`~urllib3.exceptions.MaxRetryError` exception.
 
             Pass ``None`` to retry until you receive a response. Pass a
-            :class:`~urllib3.util.retry.Retry` object for fine-grained control
+            :class:`~urllib3.util.retry.Retry` jeeObject for fine-grained control
             over different types of retries.
             Pass an integer number to retry connection errors that many times,
             but no other types of errors. Pass zero to never retry.
@@ -512,7 +512,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
             # Request a connection from the queue.
             conn = self._get_conn(timeout=pool_timeout)
 
-            # Make the request on the httplib connection object.
+            # Make the request on the httplib connection jeeObject.
             httplib_response = self._make_request(conn, method, url,
                                                   timeout=timeout,
                                                   body=body, headers=headers)
@@ -523,7 +523,7 @@ class HTTPConnectionPool(ConnectionPool, RequestMethods):
             # mess.
             response_conn = not release_conn and conn
 
-            # Import httplib's response into our own wrapper object
+            # Import httplib's response into our own wrapper jeeObject
             response = HTTPResponse.from_httplib(httplib_response,
                                                  pool=self,
                                                  connection=response_conn,

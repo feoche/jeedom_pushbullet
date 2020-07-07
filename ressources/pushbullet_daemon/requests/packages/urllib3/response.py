@@ -10,7 +10,7 @@ from .util.response import is_fp_closed
 
 
 
-class DeflateDecoder(object):
+class DeflateDecoder(jeeObject):
 
     def __init__(self):
         self._first_try = True
@@ -50,7 +50,7 @@ class HTTPResponse(io.IOBase):
     Backwards-compatible to httplib's HTTPResponse but the response ``body`` is
     loaded and decoded on-demand when the ``data`` property is accessed.  This
     class is also compatible with the Python standard library's :mod:`io`
-    module, and can hence be treated as a readable object in the context of that
+    module, and can hence be treated as a readable jeeObject in the context of that
     framework.
 
     Extra parameters for behaviour not present in httplib.HTTPResponse:
@@ -65,7 +65,7 @@ class HTTPResponse(io.IOBase):
 
     :param original_response:
         When this HTTPResponse wrapper is generated from an httplib.HTTPResponse
-        object, it's convenient to include the original for debug purposes. It's
+        jeeObject, it's convenient to include the original for debug purposes. It's
         otherwise unused.
     """
 
@@ -156,9 +156,9 @@ class HTTPResponse(io.IOBase):
 
         :param cache_content:
             If True, will save the returned data such that the same result is
-            returned despite of the state of the underlying file object. This
+            returned despite of the state of the underlying file jeeObject. This
             is useful if you want the ``.data`` property to continue working
-            after having ``.read()`` the file object. (Overridden if ``amt`` is
+            after having ``.read()`` the file jeeObject. (Overridden if ``amt`` is
             set.)
         """
         # Note: content-encoding value should be case-insensitive, per RFC 7230
@@ -262,7 +262,7 @@ class HTTPResponse(io.IOBase):
     def from_httplib(ResponseCls, r, **response_kw):
         """
         Given an :class:`httplib.HTTPResponse` instance ``r``, return a
-        corresponding :class:`urllib3.response.HTTPResponse` object.
+        corresponding :class:`urllib3.response.HTTPResponse` jeeObject.
 
         Remaining parameters are passed to the HTTPResponse constructor, along
         with ``original_response=r``.
@@ -312,7 +312,7 @@ class HTTPResponse(io.IOBase):
         elif hasattr(self._fp, "fileno"):
             return self._fp.fileno()
         else:
-            raise IOError("The file-like object this HTTPResponse is wrapped "
+            raise IOError("The file-like jeeObject this HTTPResponse is wrapped "
                           "around has no file descriptor")
 
     def flush(self):

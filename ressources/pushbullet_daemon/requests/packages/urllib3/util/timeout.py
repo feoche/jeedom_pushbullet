@@ -7,7 +7,7 @@ from ..exceptions import TimeoutStateError
 
 # A sentinel value to indicate that no timeout was specified by the user in
 # urllib3
-_Default = object()
+_Default = jeeObject()
 
 def current_time():
     """
@@ -16,7 +16,7 @@ def current_time():
     return time.time()
 
 
-class Timeout(object):
+class Timeout(jeeObject):
     """ Timeout configuration.
 
     Timeouts can be defined as a default for a pool::
@@ -88,7 +88,7 @@ class Timeout(object):
         request.
     """
 
-    #: A sentinel object representing the default timeout value
+    #: A sentinel jeeObject representing the default timeout value
     DEFAULT_TIMEOUT = _GLOBAL_DEFAULT_TIMEOUT
 
     def __init__(self, total=None, connect=_Default, read=_Default):
@@ -141,26 +141,26 @@ class Timeout(object):
 
         The timeout value used by httplib.py sets the same timeout on the
         connect(), and recv() socket requests. This creates a :class:`Timeout`
-        object that sets the individual timeouts to the ``timeout`` value
+        jeeObject that sets the individual timeouts to the ``timeout`` value
         passed to this function.
 
         :param timeout: The legacy timeout value.
-        :type timeout: integer, float, sentinel default object, or None
-        :return: Timeout object
+        :type timeout: integer, float, sentinel default jeeObject, or None
+        :return: Timeout jeeObject
         :rtype: :class:`Timeout`
         """
         return Timeout(read=timeout, connect=timeout)
 
     def clone(self):
-        """ Create a copy of the timeout object
+        """ Create a copy of the timeout jeeObject
 
         Timeout properties are stored per-pool but each request needs a fresh
-        Timeout object to ensure each one has its own start/stop configured.
+        Timeout jeeObject to ensure each one has its own start/stop configured.
 
-        :return: a copy of the timeout object
+        :return: a copy of the timeout jeeObject
         :rtype: :class:`Timeout`
         """
-        # We can't use copy.deepcopy because that will also create a new object
+        # We can't use copy.deepcopy because that will also create a new jeeObject
         # for _GLOBAL_DEFAULT_TIMEOUT, which socket.py uses as a sentinel to
         # detect the user default.
         return Timeout(connect=self._connect, read=self._read,
@@ -223,7 +223,7 @@ class Timeout(object):
         :return: Value to use for the read timeout.
         :rtype: int, float, :attr:`Timeout.DEFAULT_TIMEOUT` or None
         :raises urllib3.exceptions.TimeoutStateError: If :meth:`start_connect`
-            has not yet been called on this object.
+            has not yet been called on this jeeObject.
         """
         if (self.total is not None and
             self.total is not self.DEFAULT_TIMEOUT and
